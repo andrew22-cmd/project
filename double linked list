@@ -1,0 +1,235 @@
+
+// linekd list  contain group of nodes (composition)
+
+class doublelinked
+
+{
+public:
+node *head, *tail;
+int count;
+linked() {
+
+head = tail = NULL;
+count = 0;
+}
+void add(int x) {//without position (add from back ) 
+node *elem = new node(); // heap memory
+elem->element = x;
+if (head == NULL)
+head = tail = elem;
+else {
+tail->next = elem;
+elem->prev = tail;
+tail = elem;
+
+}
+count++;
+}
+
+void display() {
+node* current;
+while (current != NULL) {
+cout << current->element<<endl;
+current = current->next;
+}
+
+}
+void remove(int x) {
+
+
+node* elem = getnode(x);
+if (elem == NULL) {
+return;
+}
+else if(elem==head){
+if (elem == tail) {
+head = tail = NULL;
+
+}
+else {
+head = head->next;
+head->prev = NULL;
+}
+}
+else if (elem == tail) {
+
+tail = tail->prev;
+tail->next = NULL;
+}
+else {
+elem->next->prev = elem->prev;
+elem->prev->next = elem->next;
+
+
+}
+delete elem;
+}
+void insertafter(int u, int after) {
+node* y = getnode(after);
+if (y) {
+cout << "not found after ";
+
+}
+else {
+
+
+node* x = new node();
+x->element = u;
+if (y->next)y->next->prev = x;// if y is tail so it will be error
+x->next = y->next;
+y->next = x;
+x->prev = y;
+if (y == tail)tail = x;
+count++;
+}
+
+}
+int getbyindex(int ind) {
+if (ind = 0 || ind > count) {
+return -1;
+
+}
+else {
+ 
+node* current = head;//it will loop from head (it's index is 0)
+
+for (int i; i < ind; i++) {
+
+current = current->next;
+
+}
+return current->element;
+... (28 lines left)
+Collapse
+linked.h
+3 KB
+و الstack بذاكرة معلش بذاكرة و قربت علية بس مش عارف اظبط  الوقت عشان ورايا حاجات تانية
+Nesreen — Yesterday at 10:59 PM
+﻿
+// linekd list  contain group of nodes (composition)
+
+class doublelinked
+
+{
+public:
+	node *head, *tail;
+	int count;
+	linked() {
+
+		head = tail = NULL;
+		count = 0;
+	}
+	void add(int x) {		//without position (add from back ) 
+		node *elem = new node(); // heap memory
+		elem->element = x;
+		if (head == NULL)
+			head = tail = elem;
+		else {
+			tail->next = elem;
+			elem->prev = tail;
+			tail = elem;
+
+		}
+		count++;
+	}
+
+	void display() {
+		node* current;
+		while (current != NULL) {
+			cout << current->element<<endl;
+			current = current->next;
+		}
+
+	}
+	void remove(int x) {
+		
+
+		node* elem = getnode(x);
+		if (elem == NULL) {
+			return;
+		}
+		else if(elem==head){
+			if (elem == tail) {
+				head = tail = NULL;
+
+		}
+			else {
+				head = head->next;
+				head->prev = NULL;
+			}
+		}
+		else if (elem == tail) {
+
+			tail = tail->prev;
+			tail->next = NULL;
+		}
+		else {
+			elem->next->prev = elem->prev;
+			elem->prev->next = elem->next;
+
+	
+		}
+		delete elem;
+	}
+	void insertafter(int u, int after) {
+		node* y = getnode(after);
+		if (y) {
+			cout << "not found after ";
+
+		}
+		else {
+
+			
+			node* x = new node();
+			x->element = u;
+			if (y->next)y->next->prev = x;// if y is tail so it will be error
+			x->next = y->next;
+			y->next = x;
+			x->prev = y;
+			if (y == tail)tail = x;
+			count++;
+		}
+
+	}
+	int getbyindex(int ind) {
+		if (ind = 0 || ind > count) {
+			return -1;
+
+		}
+		else {
+			 
+			node* current = head;//it will loop from head (it's index is 0)
+
+			for (int i; i < ind; i++) {
+
+				current = current->next;
+
+			}
+			return current->element;
+		}
+	}
+	void make_null() {
+		while (head) {
+			node* temp = head;
+			head=head->next;
+			delete temp;
+		}
+		tail == NULL;
+		count = 0;
+
+	}
+
+private:
+	node* getnode(int x) {
+		node* point = head;
+		while (point != NULL) {
+			if (point->element == x)
+				return point;
+			point = point->next;
+		}
+
+
+		return NULL;
+	}
+
+};
